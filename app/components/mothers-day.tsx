@@ -113,13 +113,8 @@ export default function MothersDay() {
 
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "dejt.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    window.location.href = url;
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
 
   const handleNejClick = () => {
