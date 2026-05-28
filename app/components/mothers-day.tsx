@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 type Step = "intro" | "date-question" | "day-selection" | "confirmation";
 
@@ -13,7 +14,7 @@ interface Heart {
 }
 
 const INTRO_LINES = [
-  "Glad mors dag, Elektra",
+  "Glad mors dag, Elektra!",
   "Du är en av mina favoritmammor (jag har två)",
   "Och den snyggaste, sexigaste och roligaste mamman jag vet",
 ];
@@ -91,32 +92,6 @@ export default function MothersDay() {
     return { x: cx, y: window.innerHeight + 300 };
   };
 
-  const addToCalendar = () => {
-    // Fredag = 5 juni, Lördag = 6 juni
-    const dateStr = chosenDay === "Fredag" ? "20260605" : "20260606";
-    const dtStart = `${dateStr}T190000`;
-    const dtEnd   = `${dateStr}T210000`;
-
-    const ics = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//elektra-milf//EN",
-      "BEGIN:VEVENT",
-      `DTSTART:${dtStart}`,
-      `DTEND:${dtEnd}`,
-      "SUMMARY:dejt med William",
-      "LOCATION:https://www.google.com/maps/place//data=!4m2!3m1!1s0x465f9d006fcaa459:0xca51f5646228017a?sa=X&ved=1t:8290&ictx=111",
-      "DESCRIPTION:Thaipas 🥰",
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].join("\r\n");
-
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    window.location.href = url;
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
-  };
-
   const handleNejClick = () => {
     if (nejBroken) return;
 
@@ -161,7 +136,9 @@ export default function MothersDay() {
                   visibleLines > i ? "translateY(0)" : "translateY(14px)",
               }}
             >
-              <p className="text-xl font-black text-black leading-snug">{line}</p>
+              <p className="text-xl font-black text-black leading-snug">
+                {line}
+              </p>
             </div>
           ))}
         </div>
@@ -260,16 +237,27 @@ export default function MothersDay() {
               🩷
             </span>
           ))}
-          <div className="animate-bubble-pop bg-yellow-300 border-2 border-black shadow-[6px_6px_0px_0px_#000] px-10 py-8 max-w-xs text-center z-10 flex flex-col items-center gap-5">
+          <div className="fixed bottom-0 left-0 right-0 flex justify-between items-end pointer-events-none z-0 translate-y-8">
+            <Image
+              src="/uffe.png"
+              alt="uffe"
+              width={180}
+              height={180}
+              className="object-contain animate-swing"
+            />
+            <Image
+              src="/e.png"
+              alt="e"
+              width={180}
+              height={180}
+              className="object-contain animate-swing"
+              style={{ animationDelay: "0.5s" }}
+            />
+          </div>
+          <div className="animate-bubble-pop animate-wobble bg-yellow-300 border-2 border-black shadow-[6px_6px_0px_0px_#000] px-10 py-8 max-w-xs text-center z-10 flex flex-col items-center gap-5">
             <p className="text-2xl font-black text-black leading-snug">
-              Ses på {chosenDay}! <br /> Jag älskar dig ❤️
+              Ses på {chosenDay}, <br /> jag älskar dig!
             </p>
-            <button
-              onClick={addToCalendar}
-              className="bg-white border-2 border-black shadow-[4px_4px_0px_0px_#000] hover:shadow-[6px_6px_0px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-none active:translate-x-1 active:translate-y-1 font-black text-black text-base px-6 py-2 transition-all duration-75 cursor-pointer"
-            >
-              📅 Lägg till i kalender
-            </button>
           </div>
         </>
       )}
