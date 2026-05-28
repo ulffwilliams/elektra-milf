@@ -15,8 +15,9 @@ interface Heart {
 
 const INTRO_LINES = [
   "Glad mors dag, Elektra!",
-  "Du är en av mina favoritmammor (jag har två)",
+  "Du är en av mina favoritmammor",
   "Och den snyggaste, sexigaste och roligaste mamman jag vet",
+  "Och jag undrade...",
 ];
 
 export default function MothersDay() {
@@ -58,7 +59,8 @@ export default function MothersDay() {
       setTimeout(() => setVisibleLines(1), 600),
       setTimeout(() => setVisibleLines(2), 2200),
       setTimeout(() => setVisibleLines(3), 3800),
-      setTimeout(() => setStep("date-question"), 8300),
+      setTimeout(() => setVisibleLines(4), 5400),
+      setTimeout(() => setStep("date-question"), 9900),
     ];
     return () => timers.forEach(clearTimeout);
   }, [step]);
